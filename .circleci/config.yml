@@ -27,9 +27,11 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew check
-      - gradle/collect_test_results:
-          test_results_path: build/test-results
-          reports_path: build/reports
+      - store_test_results:
+            path: build/test-results/jvmTest
+      - store_artifacts:
+            path: build/reports
+            destination: Results
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
